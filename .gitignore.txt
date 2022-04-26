@@ -1,1 +1,1 @@
-*/__pycache__/
+FileManagementSystem/FileManagementSystem/__pycache__/
