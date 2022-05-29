@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .form import FileForm
+from .forms import FileForm
+from django.http import HttpResponseBadRequest
+
 def index(request):
 
     form = FileForm()
@@ -11,7 +12,7 @@ def index(request):
             form.save()
             
     context = {'form':form}
-    return render(request, 'X/form.html', context)
+    return render(request, 'X/form_add_new_file.html', context)
    
 
 def new_func(request):

@@ -4,8 +4,8 @@ from django.db import models
 
 
 class File(models.Model):
-	first_name = models.CharField(max_length=200)
-	last_name = models.CharField(max_length=200)
+	file_name = models.CharField(max_length=200)
+	file_number = models.CharField(max_length=200)
 
 	def __str__(self):
-		return self.first_name + ' ' + self.last_name 
+		return self.file_name + ' ' + self.file_number 
