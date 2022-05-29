@@ -1,0 +1,20 @@
+{% extends "common.html" %} 
+{% load crispy_forms_tags %}
+{% block contents %} 
+
+ <h3>Add New File</h3>
+<hr>
+
+<form action="" method="post">
+	{% csrf_token %}
+	<div>{{ form.file_name|as_crispy_field}}</div>
+	<br>
+    <div>{{ form.file_number|as_crispy_field}}</div>
+	<br>
+	<button type='submit' class="btn btn-success btn-md">
+		{{header_ico_tag.ico|safe}}
+		&nbsp;<b>ADD</b></button>
+	
+</form>
+
+{% endblock contents %}
