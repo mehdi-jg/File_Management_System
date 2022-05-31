@@ -8,7 +8,7 @@ class JGDivision(models.Model):
     NothiCode = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
-        return self.DivisionName
+        return self.DivisionName or ' '
 
 
 class JGDepartment(models.Model):
@@ -18,7 +18,7 @@ class JGDepartment(models.Model):
     NothiCode = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
-        return self.DepartmentName
+        return self.DepartmentName or ' '
 
 
 class JGSection(models.Model):
@@ -28,7 +28,7 @@ class JGSection(models.Model):
     NothiCode = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
-        return self.SectionName
+        return self.SectionName or ' '
 
 
 class JGSubSection(models.Model):
@@ -38,7 +38,7 @@ class JGSubSection(models.Model):
     NothiCode = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
-        return self.SubSectionName
+        return self.SubSectionName or ' '
 
 
 class File(models.Model):
@@ -53,4 +53,4 @@ class File(models.Model):
     
 
     def __str__(self):
-        return self.file_name
+        return self.file_name or ' '

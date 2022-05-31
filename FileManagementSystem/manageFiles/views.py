@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from manageFiles.models import JGDepartment, JGDivision
 from .forms import FileForm
 from django.http import HttpResponseBadRequest
 
@@ -18,3 +20,8 @@ def index(request):
 def new_func(request):
     return render(request, 'index.html')
 
+
+def load_departments(request):
+    division_id = request.GET.get('file_division')
+    departments = JGDepartment.objects.filter(JGDivision_id=division_id).order_by('NothiCode')
+    return render(request, 'X/departments_dropdown_list_options.html', {'departments': departments})

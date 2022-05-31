@@ -5,7 +5,7 @@
  <h3>Add New File</h3>
 <hr>
 
-<form action="" method="post">
+<form action="" id="fileForm" method="post" data-departments-url="{% url 'ajax_load_departments' %}" novalidate>
 	{% csrf_token %}
 	<div class="row">
 		<div class="col-md-4">{{ form.file_division|as_crispy_field }}</div>
@@ -22,5 +22,24 @@
 		&nbsp;<b>ADD</b></button>
 	
 </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_file_division").change(function () {
+      var url = $("#fileForm").attr("data-departments-url");  // get the url of the `load_departments` view
+      var divisionId = $(this).val();  // get the selected division ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-departments/)
+        data: {
+          'file_division': divisionId       // add the division id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_file_department").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
 
 {% endblock contents %}
