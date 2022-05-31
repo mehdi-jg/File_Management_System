@@ -7,6 +7,12 @@
 
 <form action="" method="post">
 	{% csrf_token %}
+	<div class="row">
+		<div class="col-md-4">{{ form.file_division|as_crispy_field }}</div>
+		<div class="col-md-4">{{ form.file_department|as_crispy_field }}</div>
+		<div class="col-md-4">{{ form.file_section|as_crispy_field }}</div>
+	</div>
+	<br>
 	<div>{{ form.file_name|as_crispy_field}}</div>
 	<br>
     <div>{{ form.file_number|as_crispy_field}}</div>
