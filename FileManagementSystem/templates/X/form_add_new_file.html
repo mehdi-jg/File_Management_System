@@ -5,7 +5,7 @@
  <h3>Add New File</h3>
 <hr>
 
-<form action="" id="fileForm" method="post" data-departments-url="{% url 'ajax_load_departments' %}" novalidate>
+<form action="" id="fileForm" method="post" data-departments-url="{% url 'ajax_load_departments' %}" data-sections-url="{% url 'ajax_load_sections' %}" novalidate>
 	{% csrf_token %}
 	<div class="row">
 		<div class="col-md-4">{{ form.file_division|as_crispy_field }}</div>
@@ -34,12 +34,29 @@
         data: {
           'file_division': divisionId       // add the division id to the GET parameters
         },
-        success: function (data) {   // `data` is the return of the `load_cities` view function
-          $("#id_file_department").html(data);  // replace the contents of the city input with the data that came from the server
+        success: function (data) {   // `data` is the return of the `load_departments` view function
+          $("#id_file_department").html(data);  // replace the contents of the department input with the data that came from the server
+        }
+      });
+
+    });
+	
+	$("#id_file_department").change(function () {
+      var url = $("#fileForm").attr("data-sections-url");  
+      var departmentID = $(this).val();  
+
+      $.ajax({                       
+        url: '{% url 'ajax_load_sections' %}',                    
+        data: {
+          'file_department': departmentID       
+        },
+        success: function (data) {   
+          $("#id_file_section").html(data);  
         }
       });
 
     });
   </script>
+  
 
 {% endblock contents %}
