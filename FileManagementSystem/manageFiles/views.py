@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
-from manageFiles.models import JGDepartment, JGDivision, JGSection
+from manageFiles.models import JGDepartment, JGDivision, JGSection,File
 from .forms import FileForm
 from django.http import HttpResponseBadRequest
 
@@ -12,7 +12,7 @@ def index(request):
         form = FileForm(request.POST)
         if form.is_valid():
             form.save()
-            
+            return redirect('/File/List')
     context = {'form':form}
     return render(request, 'X/form_add_new_file.html', context)
    
@@ -30,3 +30,9 @@ def load_sections(request):
     department_id = request.GET.get('file_department')
     sections = JGSection.objects.filter(JGDepartment=department_id).order_by('NothiCode')
     return render(request, 'X/sections_dropdown_list_options.html', {'sections': sections})
+
+
+def File_list(request):
+    data = File.objects.all()
+    lst_data = {'Dt':data}
+    return render(request,'file_list.html',lst_data)

@@ -22,7 +22,7 @@ class FileForm(forms.ModelForm):
         if 'file_division' in self.data:
             try:
                 file_division_id = int(self.data.get('file_division'))
-                self.fields['file_department'].queryset = JGDepartment.objects.filter(file_division_id=file_division_id).order_by('NothiCode')
+                self.fields['file_department'].queryset = JGDepartment.objects.filter(JGDivision_id=file_division_id).order_by('NothiCode')
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
@@ -33,7 +33,7 @@ class FileForm(forms.ModelForm):
         if 'file_department' in self.data:
             try:
                 file_department_id = int(self.data.get('file_department'))
-                self.fields['file_section'].queryset = JGSection.objects.filter(file_department_id=file_department_id).order_by('NothiCode')
+                self.fields['file_section'].queryset = JGSection.objects.filter(JGDepartment_id=file_department_id).order_by('NothiCode')
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
