@@ -12,7 +12,7 @@
 <body>
 <div class="container">
   {% comment %} <nav class="navbar navbar-expand-lg navbar-light bg-warning"> {% endcomment %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+  <nav class="navbar navbar-expand-lg navbar-light bg-info">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">  </span>
@@ -24,7 +24,7 @@
           <a class="nav-link active"  href="{% url 'index' %}"><i class="fas fa-home text text-success"></i>&nbsp;Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'File.List' %}"><i class="fas fa-list-alt text-success"></i>&nbsp; File List</a>
+          <a class="nav-link active" href="{% url 'File.List' %}"><i class="fas fa-list-alt text-success"></i>&nbsp; File List</a>
         </li>
       </ul>
       <form class="d-flex">
