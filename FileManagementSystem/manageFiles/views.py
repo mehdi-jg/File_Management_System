@@ -1,9 +1,20 @@
+from distutils import filelist
 from django.shortcuts import redirect, render
 
 from manageFiles.models import JGDepartment, JGDivision, JGSection,File
 from .forms import FileForm
 from django.http import HttpResponseBadRequest
+#Delete
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
+def FileList_delete(request, id):
+    id = File.objects.get(pk=id)
+    id.delete()
+    return HttpResponseRedirect(reverse('index'))
+   
+   
+        
 def index(request):
 
     form = FileForm()

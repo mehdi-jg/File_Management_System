@@ -21,10 +21,21 @@
           <td>{{row.file_division}}</td>
           <td>{{row.file_department}}</td>
           <td>{{row.file_section}}</td>
-          
+          <!-- for delete -->
+            <td class="text-center">      
+              <form action="{% url 'FileList.Delete' row.id %}" method="get">
+                {% csrf_token %}
+      
+              <button type="submit" class="btn btn btn-secondary text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+              <i class="fas fa-trash-alt text-center text-danger"></i>
+                Delete
+              </button>
+              </form> 
+            </td>
         </tr>
-        {% endfor %}
       </tbody>
+      {% endfor %}
     </table>
   </div>
+
 {% endblock contents %}
