@@ -6,11 +6,12 @@
     <table class="table align-middle table-striped table-dark">
       <thead class="table-dark align-middle">
         <th scope="col" class="text-center">#</th>
-        <th scope="col">File Name</th>
-        <th scope="col">File Number</th>
-        <th scope="col">Division</th>
-        <th scope="col">Department</th>
-        <th scope="col">Section</th>
+        <th scope="col">নথির বিষয়</th>
+        <th scope="col">নথির নম্বর</th>
+        <th scope="col">নথির ধরণ</th>
+        <th scope="col">নথির শ্রেণি</th>
+        <th scope="col">নথির শাখা</th>
+        <th scope="col">অপশন</th>
       </thead>
       <tbody>
       {% for row in Dt %}
@@ -18,8 +19,8 @@
           <th class="table-dark text-center">{{ forloop.counter }}</th>
           <td>{{row.file_name}}</td>
           <td>{{row.file_number}}</td>
-          <td>{{row.file_division}}</td>
-          <td>{{row.file_department}}</td>
+          <td>{{row.file_type}}</td>
+          <td>{{row.file_class}}</td>
           <td>{{row.file_section}}</td>
           <!-- for delete -->
             <td class="text-center">      

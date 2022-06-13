@@ -11,11 +11,11 @@ from django.urls import reverse
 def FileList_delete(request, id):
     id = File.objects.get(pk=id)
     id.delete()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('create_file'))
    
    
         
-def index(request):
+def create_file(request):
 
     form = FileForm()
 

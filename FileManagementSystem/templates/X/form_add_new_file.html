@@ -6,12 +6,12 @@
 <hr>
 
 <div class="jumbotron align-center">
-  <form action="" id="fileForm" style="background-color:#e2e5e8" autocomplete="off" method="post" data-departments-url="{% url 'ajax_load_departments' %}" data-sections-url="{% url 'ajax_load_sections' %}" novalidate>
+  <form action="" id="fileForm" style="background-color:#e2e5e8" autocomplete="off" method="post" >
     {% csrf_token %}
     <div class="row">
       <div class="col-md-1"></div>
-      <div class="col-md-3">{{ form.file_division|as_crispy_field }}</div>
-      <div class="col-md-3">{{ form.file_department|as_crispy_field }}</div>
+      <div class="col-md-3">{{ form.file_type|as_crispy_field }}</div>
+      <div class="col-md-3">{{ form.file_class|as_crispy_field }}</div>
       <div class="col-md-3">{{ form.file_section|as_crispy_field }}</div>
       <div class="col-md-2"></div>
     </div>
@@ -41,7 +41,7 @@
   </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
     $("#id_file_division").change(function () {
       var url = $("#fileForm").attr("data-departments-url");  // get the url of the `load_departments` view
@@ -74,7 +74,7 @@
       });
 
     });
-  </script>
+  </script> -->
   
 
 {% endblock contents %}
