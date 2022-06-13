@@ -7,5 +7,5 @@ urlpatterns = [
     path('List/', views.File_list, name='File.List'),
     path('ajax/load-departments/', views.load_departments, name='ajax_load_departments'),
     path('ajax/load-sections/', views.load_sections, name='ajax_load_sections'),
-    path('Delete/<int:id>/', views.FileList_delete, name='FileList.Delete'),
+    path('pdf<int:id>/', views.GeneratePdf, name='File_pdf_print'),
 ]

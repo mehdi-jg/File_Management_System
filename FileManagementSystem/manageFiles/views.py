@@ -4,9 +4,33 @@ from django.shortcuts import redirect, render
 from manageFiles.models import JGDepartment, JGDivision, JGSection,File
 from .forms import FileForm
 from django.http import HttpResponseBadRequest
+from django.http import HttpResponse
+from django.views.generic import View
+from manageFiles import models
+from .processPDF import html_to_pdf
+from django.template.loader import render_to_string
+
 #Delete
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
+
+
+def GeneratePdf(request, id):
+    data = models.File.objects.get(pk=id)
+    if data:
+        context ={
+            'data':data
+        }
+        # Converting the HTML template into a PDF file
+        pdf = html_to_pdf('temp.html',context)
+    
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+
+    else:
+        # messages.info(request, 'Item not found')
+        return render('file_list.html')
 
 def FileList_delete(request, id):
     id = File.objects.get(pk=id)
