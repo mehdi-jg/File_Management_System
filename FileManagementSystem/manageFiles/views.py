@@ -18,19 +18,13 @@ from django.urls import reverse
 
 def GeneratePdf(request, id):
     data = models.File.objects.get(pk=id)
-    if data:
-        context ={
-            'data':data
-        }
-        # Converting the HTML template into a PDF file
-        pdf = html_to_pdf('temp.html',context)
-    
-        # rendering the template
-        return HttpResponse(pdf, content_type='application/pdf')
+    open('templates/temp.html', "w" , encoding="UTF-8").write(render_to_string('result.html', {'data': data}))
 
-    else:
-        # messages.info(request, 'Item not found')
-        return render('file_list.html')
+    # Converting the HTML template into a PDF file
+    pdf = html_to_pdf('temp.html')
+    
+    # rendering the template
+    return HttpResponse(pdf, content_type='application/pdf')
 
 def FileList_delete(request, id):
     id = File.objects.get(pk=id)
