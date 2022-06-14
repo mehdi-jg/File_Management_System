@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 from django.db import models
+from . import dropdownChoices
 
 # Create your models here.
 
@@ -45,7 +46,7 @@ class File(models.Model):
     file_name = models.CharField(max_length=200, blank=True, null=True)
     file_number = models.CharField(max_length=200, blank=True, null=True)
     file_type = models.CharField(max_length=200, blank=True, null=True)
-    file_class = models.CharField(max_length=200, blank=True, null=True)
+    file_class = models.CharField(max_length=10, blank=True, null=True, choices=dropdownChoices.ChoicesFileClass)
     file_section = models.ForeignKey(
         JGSection, blank=True, null=True, on_delete=models.CASCADE)
     
