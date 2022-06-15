@@ -1,3 +1,4 @@
+from datetime import datetime
 from distutils import filelist
 from django.shortcuts import redirect, render
 
@@ -6,25 +7,51 @@ from .forms import FileForm
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponse
 from django.views.generic import View
+from weasyprint import HTML
 from manageFiles import models
-from .processPDF import html_to_pdf
+# from .processPDF import html_to_pdf
 from django.template.loader import render_to_string
 
 #Delete
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import tempfile
 
 
 
-def GeneratePdf(request, id):
-    data = models.File.objects.get(pk=id)
-    open('templates/temp.html', "w" , encoding="UTF-8").write(render_to_string('result.html', {'data': data}))
+# def GeneratePdf(request, id):
+#     data = models.File.objects.get(pk=id)
+#     open('templates/temp.html', "w" , encoding="UTF-8").write(render_to_string('result.html', {'data': data}))
 
-    # Converting the HTML template into a PDF file
-    pdf = html_to_pdf('temp.html')
+#     # Converting the HTML template into a PDF file
+#     pdf = html_to_pdf('temp.html')
     
-    # rendering the template
-    return HttpResponse(pdf, content_type='application/pdf')
+#     # rendering the template
+#     return HttpResponse(pdf, content_type='application/pdf')
+def GeneratePdf(request, id):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=newfile' + \
+        str(datetime.now())+'.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+
+    data = models.File.objects.get(pk=id)
+
+    html_string = render_to_string(
+         'result.html',{'data':data})
+    html = HTML(string=html_string)
+
+    resultfile = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=True)as output:
+        output.write(resultfile)
+        output.flush()
+        output.seek(0)
+        response.write(output.read())
+
+    return response
+    
+
+
 
 def FileList_delete(request, id):
     id = File.objects.get(pk=id)
