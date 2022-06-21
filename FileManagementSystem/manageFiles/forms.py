@@ -3,14 +3,21 @@ from .models import File, JGDepartment, JGDivision, JGSection
 
 class FileForm(forms.ModelForm):
     class Meta:
+
         model = File
         fields = '__all__'
+
+        widgets = {
+                'FileCreationDate': forms.TextInput(attrs={'type': 'date'})
+
+        }
         labels = {
             'file_name': 'নথির বিষয়',
             'file_number': 'নথির নম্বর',
             'file_type': 'নথির ধরণ',
             'file_class': 'নথির শ্রেণি',
             'file_section': 'নথির শাখা',
+            'FileCreationDate' : 'নথি তৈরির তারিখ',
         }
     
 

@@ -1,6 +1,11 @@
 from datetime import datetime
+from django.utils.dateformat import DateFormat
+from django.utils.formats import get_format
 from distutils import filelist
 from django.shortcuts import redirect, render
+import bangla
+from .import JG_functions
+
 
 from manageFiles.models import JGDepartment, JGDivision, JGSection,File
 from .forms import FileForm
@@ -17,8 +22,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 import tempfile
 
-
-
 # def GeneratePdf(request, id):
 #     data = models.File.objects.get(pk=id)
 #     open('templates/temp.html', "w" , encoding="UTF-8").write(render_to_string('result.html', {'data': data}))
@@ -33,13 +36,24 @@ def GeneratePdf(request, id):
     response['Content-Disposition'] = 'inline; attachment; filename=newfile' + \
         str(datetime.now())+'.pdf'
     response['Content-Transfer-Encoding'] = 'binary'
+    Z = File.objects.get(pk=id)
+    data={ 'data': Z }
+    d=int(str(DateFormat(Z.FileCreationDate).format('d')))
+    m=int(str(DateFormat(Z.FileCreationDate).format('m')))
+    y=int(str(DateFormat(Z.FileCreationDate).format('Y')))
 
-    data = models.File.objects.get(pk=id)
+    dBN = bangla.convert_english_digit_to_bangla_digit(str(DateFormat(Z.FileCreationDate).format('d')))
+    mBN = JG_functions.BanglaMonthSort(int(DateFormat(Z.FileCreationDate).format('m')))
+    yBN = bangla.convert_english_digit_to_bangla_digit(str(DateFormat(Z.FileCreationDate).format('Y')))
+    F_Bdate = dBN + ' ' + mBN+ ', ' + yBN
 
+    data = data|{'F_Date':bangla.get_date(d,m,y)}
+    data = data|{'F_Bdate':F_Bdate}
     html_string = render_to_string(
          'result.html',{'data':data})
-    html = HTML(string=html_string)
 
+    html = HTML(string=html_string,base_url=request.build_absolute_uri())
+ 
     resultfile = html.write_pdf()
 
     with tempfile.NamedTemporaryFile(delete=True)as output:
@@ -51,15 +65,12 @@ def GeneratePdf(request, id):
     return response
     
 
-
-
 def FileList_delete(request, id):
     id = File.objects.get(pk=id)
     id.delete()
     return HttpResponseRedirect(reverse('create_file'))
    
-   
-        
+ 
 def create_file(request):
 
     form = FileForm()

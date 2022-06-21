@@ -10,9 +10,10 @@
     {% csrf_token %}
     <div class="row">
       <div class="col-md-1"></div>
-      <div class="col-md-3">{{ form.file_type|as_crispy_field }}</div>
-      <div class="col-md-3">{{ form.file_class|as_crispy_field }}</div>
+      <div class="col-md-2">{{ form.file_type|as_crispy_field }}</div>
+      <div class="col-md-2">{{ form.file_class|as_crispy_field }}</div>
       <div class="col-md-3">{{ form.file_section|as_crispy_field }}</div>
+      <div class="col-md-2">{{ form.FileCreationDate|as_crispy_field }}</div>
       <div class="col-md-2"></div>
     </div>
     <br>
