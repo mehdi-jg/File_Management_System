@@ -11,7 +11,9 @@
         <th scope="col">নথির ধরণ</th>
         <th scope="col">নথির শ্রেণি</th>
         <th scope="col">নথির শাখা</th>
+        <th scope="col">তারিখ</th>
         <th scope="col">অপশন</th>
+        
       </thead>
       <tbody>
       {% for row in Dt %}
@@ -22,6 +24,7 @@
           <td>{{row.file_type}}</td>
           <td>{{row.file_class}}</td>
           <td>{{row.file_section}}</td>
+          <td>{{row.FileCreationDate}}</td>
           <!-- for delete -->
             <td class="text-center">      
               <form action="{% url 'File_pdf_print' row.id %}" method="get">

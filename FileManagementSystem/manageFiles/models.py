@@ -49,7 +49,7 @@ class File(models.Model):
     file_class = models.CharField(max_length=10, blank=True, null=True, choices=dropdownChoices.ChoicesFileClass)
     file_section = models.ForeignKey(
         JGSection, blank=True, null=True, on_delete=models.CASCADE)
-    
+    FileCreationDate = models.DateTimeField(auto_now_add=False, auto_now=False)
 
     def __str__(self):
         return self.file_name or ' '
